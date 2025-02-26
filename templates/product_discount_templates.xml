@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="product_discount_display" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="inside">
+            <t t-if="product.discount_percentage > 0">
+                <p class="oe_price">
+                    <span class="text-danger">
+                        <strong>
+                            <t t-esc="product.discounted_price"/>
+                            <t t-if="website_currency"> <t t-esc="website_currency.symbol"/></t>
+                        </strong>
+                    </span>
+                    <span class="text-muted text-decoration-line-through">
+                        <t t-esc="product.list_price"/>
+                        <t t-if="website_currency"> <t t-esc="website_currency.symbol"/></t>
+                    </span>
+                </p>
+            </t>
+        </xpath>
+    </template>
+</odoo>
