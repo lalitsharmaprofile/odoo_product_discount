@@ -6,7 +6,8 @@
                 <p class="oe_price">
                     <span class="text-danger">
                         <strong>
-                            <t t-esc="product.discounted_price"/>
+                            <t t-esc="product.discounted_price"   />
+                            <!-- t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" -->
                             <t t-if="website_currency"> <t t-esc="website_currency.symbol"/></t>
                         </strong>
                     </span>
@@ -16,6 +17,37 @@
                     </span>
                 </p>
             </t>
+            <t t-else="">
+                <span class="oe_price"
+                      style="white-space: nowrap;"
+                      t-out="combination_info['price']"
+                      t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </t>
         </xpath>
     </template>
+
+    <template id="shop_product_discount_display" inherit_id="website_sale.products_item">
+        <xpath expr="//div[@class='product_price']" position="replace">
+            <t t-if="product.discount_percentage > 0">
+                <div class="oe_price">
+                    <span class="text-danger fw-bold">
+                        <t t-esc="product.discounted_price"  t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                        <t t-if="website_currency"> <t t-esc="website_currency.symbol"/></t>
+                    </span>
+                    <span class="text-muted text-decoration-line-through ms-2">
+                        <t t-esc="product.list_price"/>
+                        <t t-if="website_currency"> <t t-esc="website_currency.symbol"/></t>
+                    </span>
+                </div>
+            </t>
+            <t t-else = "">
+                <span class="oe_price">
+                    <t t-esc="product.list_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <t t-if="website_currency"> <t t-esc="website_currency.symbol"/></t>
+                </span>
+            </t>
+        </xpath>
+    </template>
+
+    
 </odoo>
